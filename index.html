@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Acción Fenómeno de El Niño 2026-2027 - Cooperativa Andalucía</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --card-bg: #ffffff;
+            --alert-amarilla: #eab308;
+            --alert-blanca: #94a3b8;
+            --alert-critica: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #93c5fd;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Digital Countdown Clock Banner */
+        .countdown-banner {
+            background: linear-gradient(135deg, #0f172a 100%, #1e3a8a 0%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .countdown-banner h3 {
+            font-size: 1.1rem;
+            color: #93c5fd;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown-clock {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .clock-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            min-width: 90px;
+            backdrop-filter: blur(5px);
+        }
+
+        .clock-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .clock-label {
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2rem;
+            max-width: 1700px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1100px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar-container {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .timeline-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline-container h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .timeline-slider {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 0 auto 1.2rem auto;
+            padding: 0 10px;
+        }
+
+        .timeline-slider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .timeline-step {
+            position: relative;
+            z-index: 2;
+            background: white;
+            border: 3px solid #cbd5e1;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(30, 58, 138, 0.4);
+        }
+
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .timeline-labels span {
+            cursor: pointer;
+            width: 60px;
+        }
+
+        .timeline-labels span.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .phase-description {
+            background: #f1f5f9;
+            padding: 0.9rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            border-left: 4px solid var(--primary);
+            text-align: left;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Map embed container */
+        .map-embed-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+        }
+
+        .map-embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Totals Graphical Summary Cards (Row 24 equivalent) */
+        .totals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .total-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-top: 4px solid var(--secondary);
+        }
+
+        .total-card.highlight {
+            border-top-color: var(--accent);
+            background: #fffbeb;
+        }
+
+        .total-card h4 {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .total-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .total-percentage {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #d97706;
+        }
+
+        /* Full Quantitative Data Table Styles */
+        .interactive-table-container {
+            overflow-x: auto;
+            max-height: 600px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .data-table th, .data-table td {
+            padding: 0.65rem 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #f1f5f9;
+        }
+
+        .data-table th {
+            background: #1e3a8a;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .data-table th:hover {
+            background: #1e40af;
+        }
+
+        .data-table tr:hover {
+            background: #f1f5f9;
+        }
+
+        .data-table tr.total-row {
+            background: #e2e8f0;
+            font-weight: bold;
+            position: sticky;
+            bottom: 0;
+            z-index: 5;
+        }
+
+        .badge {
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+
+        .badge-amarilla { background: #fef08a; color: #854d0e; }
+        .badge-blanca { background: #f1f5f9; color: #475569; }
+
+        /* Accordions and Mind Map */
+        .accordion-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-header {
+            background: #f8fafc;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .accordion-header:hover {
+            background: #f1f5f9;
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1rem;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 600px;
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .mindmap-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .mindmap-nodes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .mindmap-branch {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mindmap-branch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .mindmap-branch h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mindmap-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .mindmap-branch.active .mindmap-details {
+            max-height: 400px;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .mindmap-details ul {
+            padding-left: 1.2rem;
+            margin-top: 0.4rem;
+        }
+
+        .mindmap-details li {
+            margin-bottom: 0.3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Plan de Acción: Fenómeno de El Niño (2026-2027)</h1>
+        <p>Cooperativa de Ahorro y Crédito Andalucía - Subgerencia de Riesgos Integrales / Riesgo Operativo</p>
+    </header>
+
+    <!-- Digital Countdown Clock Banner to Dec 1, 2026 -->
+    <div class="countdown-banner">
+        <h3>⏳ Cuenta Regresiva Oficial — Hito Plan FEN (01 de Diciembre de 2026)</h3>
+        <div class="countdown-clock" id="countdown">
+            <div class="clock-box">
+                <div class="clock-number" id="days">00</div>
+                <div class="clock-label">Días</div>
+            </div>
+            <div class="clock-box">
+                <div class="clock-number" id="hours">00</div>
+                <div class="clock-label">Horas</div>
+            </div>
+            <div class="clock-box">
+                <div class="clock-number" id="minutes">00</div>
+                <div class="clock-label">Minutos</div>
+            </div>
+            <div class="clock-box">
+                <div class="clock-number" id="seconds">00</div>
+                <div class="clock-label">Segundos</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+
+        <!-- Floating Sidebar with Timeline -->
+        <div class="sidebar-container">
+            <div class="timeline-container">
+                <h3>Línea de Tiempo Interactiva (2026 - 2027)</h3>
+                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 1rem;">Seleccione un período para actualizar las fases del plan.</p>
+                
+                <div class="timeline-slider">
+                    <div class="timeline-step active" onclick="setMonth('sep-oct-2026')">1</div>
+                    <div class="timeline-step" onclick="setMonth('nov-2026')">2</div>
+                    <div class="timeline-step" onclick="setMonth('dic-2026')">3</div>
+                    <div class="timeline-step" onclick="setMonth('ene-feb-2027')">4</div>
+                    <div class="timeline-step" onclick="setMonth('mar-2027')">5</div>
+                </div>
+                
+                <div class="timeline-labels">
+                    <span class="active" onclick="setMonth('sep-oct-2026')">Sep-Oct '26</span>
+                    <span onclick="setMonth('nov-2026')">Nov '26</span>
+                    <span onclick="setMonth('dic-2026')">Dic '26</span>
+                    <span onclick="setMonth('ene-feb-2027')">Ene-Feb '27</span>
+                    <span onclick="setMonth('mar-2027')">Mar '27</span>
+                </div>
+
+                <div id="phase-desc" class="phase-description">
+                    <strong>Septiembre - Octubre 2026:</strong> Activación de lluvias excesivas en la Costa y crisis eléctrica simultánea por estiaje en la Sierra. Monitoreo permanente de agencias.
+                </div>
+            </div>
+
+            <div class="card" style="padding: 1.25rem;">
+                <h3 style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.75rem;">📊 Resumen de Alertas SNGR</h3>
+                <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 0.5rem;"><strong>Alerta Amarilla (Provincias clave):</strong> Matriz, Colón, Manta, Cotacachi, Urcuquí.</p>
+                <p style="font-size: 0.85rem; color: #64748b;"><strong>Alerta Blanca (Otras agencias):</strong> Lago Agrio, Pedro Vicente M., Atahualpa, Inca, Centro, Centros Comerciales y Oficinas Urbanas.</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            
+            <!-- Map Card -->
+            <div class="card">
+                <h2>🌍 Mapa Interactivo de Agencias y Cantones (Google My Maps Oficial)</h2>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Visualización geoespacial interactiva de oficinas institucionales y zonas vulnerables vinculadas al Fenómeno de El Niño.</p>
+                
+                <div class="map-embed-container">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1sqicI5PgbJtwcXOYiQWLMRXQA_dutPY&ehbc=2E312F" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- Quantitative Analysis Table Section -->
+            <div class="card">
+                <h2>📈 Análisis Cuantitativo y Cuantificación de Impacto FEN (Actualizado 2026-09-18)</h2>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.25rem;">Detalle exhaustivo de las 23 oficinas institucionales con desglose completo por campos, incluyendo el resumen gráfico de totales (Fila 24) y porcentajes calculados.</p>
+                
+                <!-- Graphical Summary Cards (Row 24 equivalent) -->
+                <div class="totals-grid" id="totalsGrid"></div>
+
+                <div class="interactive-table-container">
+                    <table class="data-table" id="quantTable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">OFICINA ⬋⬈</th>
+                                <th onclick="sortTable(1)">DIRECCIÓN ⬋⬈</th>
+                                <th onclick="sortTable(2)">CANTÓN ⬋⬈</th>
+                                <th onclick="sortTable(3)">AMENAZAS ANTE EL FENÓMENO “EL NIÑO” ⬋⬈</th>
+                                <th onclick="sortTable(4)">NIVEL DE ALERTA SNGR ⬋⬈</th>
+                                <th onclick="sortTable(5)">AFECTACIONES POTENCIALES PLAN FEN ⬋⬈</th>
+                                <th onclick="sortTable(6)">AFECTACIONES POTENCIALES ACTUALIZACIÓN ⬋⬈</th>
+                                <th onclick="sortTable(7)">MEDIDAS DE MITIGACIÓN PRIMARIAS PLAN FEN ⬋⬈</th>
+                                <th onclick="sortTable(8)">MEDIDAS DE MITIGACIÓN PRIMARIAS ACTUALIZACIÓN 2026-09-18 ⬋⬈</th>
+                                <th onclick="sortTable(9)">CARTERA (SALDO CAPITAL CORTE 17/9/2026) ⬋⬈</th>
+                                <th onclick="sortTable(10)">CLIENTES CARTERA ⬋⬈</th>
+                                <th onclick="sortTable(11)">CARTERA IMPACTO FEN (SALDO CAPITAL CORTE 17/9/2026) ⬋⬈</th>
+                                <th onclick="sortTable(12)">CLIENTES CARTERA IMPACTO FEN ⬋⬈</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quantTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Detailed Agencies Accordion -->
+            <div class="card">
+                <h2>🏢 Detalle Operativo por Agencia y Mitigación</h2>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Consulte el detalle operativo individualizado por oficina.</p>
+                <div style="max-height: 480px; overflow-y: auto; padding-right: 5px;" id="accordionContainer"></div>
+            </div>
+
+            <!-- Mind Map Section -->
+            <div class="mindmap-container">
+                <h2>🧠 Mapa Mental Interactivo: Plan de Acción Institucional</h2>
+                <div class="mindmap-nodes">
+                    <div class="mindmap-branch" onclick="toggleMindmap(this)">
+                        <h4>1. Medidas de Prevención <span>[Click]</span></h4>
+                        <div class="mindmap-details">
+                            <ul>
+                                <li>Monitoreo diario de fuentes oficiales (SNGR, INOCAR, INAMHI).</li>
+                                <li>Mantenimiento preventivo en techos, canaletas y sumideros.</li>
+                                <li>Revisión de UPS y plantas eléctricas de emergencia.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindmap-branch" onclick="toggleMindmap(this)">
+                        <h4>2. Medidas de Mitigación <span>[Click]</span></h4>
+                        <div class="mindmap-details">
+                            <ul>
+                                <li>Seguimiento semanal por el Comité de Continuidad.</li>
+                                <li>Procedimiento de doble papeleta para depósitos.</li>
+                                <li>Políticas extraordinarias de refinanciamiento.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindmap-branch" onclick="toggleMindmap(this)">
+                        <h4>3. Estrategia de Respuesta <span>[Click]</span></h4>
+                        <div class="mindmap-details">
+                            <ul>
+                                <li>Activación inmediata de Comités de Crisis.</li>
+                                <li>Evacuación preventiva en zonas de riesgo.</li>
+                                <li>Conmutación automática a centro de respaldo en Guayaquil.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindmap-branch" onclick="toggleMindmap(this)">
+                        <h4>4. Acciones de Recuperación <span>[Click]</span></h4>
+                        <div class="mindmap-details">
+                            <ul>
+                                <li>Evaluación post-impacto y levantamiento de daños (24-48h).</li>
+                                <li>Verificación de seguridad estructural y sanitaria por SSO.</li>
+                                <li>Inyección de liquidez y créditos de reactivación.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Cooperativa de Ahorro y Crédito Andalucía • Subgerencia de Riesgos Integrales / Riesgo Operativo • Septiembre 2026</p>
+    </footer>
+
+    <script>
+        const officesData = [
+            { oficina: "Matriz", direccion: "Jorge Piedra y Azogues", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Amarilla", afec_plan: "Saturación de drenajes urbanos y servicios centrales.", afec_act: "Monitoreo de cuartos de comunicaciones (18/09/2026).", mit_plan: "Mantenimiento de infraestructura.", mit_act: "Revisión de UPS y centro alterno.", cartera: 25400000, clientes: 6400, impacto_saldo: 3100000, impacto_clientes: 950 },
+            { oficina: "Colón", direccion: "Cristóbal Colón E4-396 y Amazonas", canton: "Quito", amenazas: "Interrupción eléctrica / Deslizamientos", alerta: "Amarilla", afec_plan: "Afectación por tránsito y precipitaciones en zona financiera.", afec_act: "Limpieza de sumideros externos (18/09/2026).", mit_plan: "Planta de respaldo y seguridad física.", mit_act: "Mantenimiento preventivo de generador.", cartera: 12300000, clientes: 3100, impacto_saldo: 1450000, impacto_clientes: 410 },
+            { oficina: "Manta", direccion: "Mall del Pacífico, Local P2-38", canton: "Manta", amenazas: "Inundaciones, marea alta, enfermedades", alerta: "Amarilla", afec_plan: "Anegamiento de instalaciones y riesgo costero.", afec_act: "Inspección de sumideros y evacuación activa (18/09/2026).", mit_plan: "Limpieza de sumideros y seguros vigentes.", mit_act: "Coordinación con Mall para drenajes.", cartera: 9100000, clientes: 2300, impacto_saldo: 2900000, impacto_clientes: 720 },
+            { oficina: "Lago Agrio", direccion: "Av. Quito 426 y Francisco de Orellana", canton: "Lago Agrio", amenazas: "Interrupción eléctrica / Aislamiento vial", alerta: "Blanca", afec_plan: "Riesgo de cortes viales y afectación a comercios.", afec_act: "Seguimiento a ejes viales amazónicos (18/09/2026).", mit_plan: "Enlaces redundantes y fondeo de efectivo.", mit_act: "Pruebas de enlaces satelitales.", cartera: 6800000, clientes: 1850, impacto_saldo: 1420000, impacto_clientes: 450 },
+            { oficina: "Cotacachi", direccion: "García Moreno 15-25 y Bolívar", canton: "Cotacachi", amenazas: "Interrupción eléctrica por estiaje", alerta: "Amarilla", afec_plan: "Cortes de energía y afectación por estiaje.", afec_act: "Monitoreo continuo por racionamientos (18/09/2026).", mit_plan: "Generador eléctrico y doble papeleta.", mit_act: "Abastecimiento de combustible.", cartera: 4250000, clientes: 1240, impacto_saldo: 850000, impacto_clientes: 310 },
+            { oficina: "Pedro Vicente M.", direccion: "Av. 29 de Junio 8-36 y San Lucas", canton: "Pedro Vicente M.", amenazas: "Interrupción eléctrica / Deslizamientos", alerta: "Blanca", afec_plan: "Cortes eléctricos y riesgo en vías intercantonales.", afec_act: "Revisión de generadores y rutas (18/09/2026).", mit_plan: "Planta eléctrica y trabajo remoto.", mit_act: "Verificación de planes viales.", cartera: 3500000, clientes: 980, impacto_saldo: 620000, impacto_clientes: 190 },
+            { oficina: "Urcuquí", direccion: "González Suárez Oe5-02 y Julio Matovelle", canton: "Urcuquí", amenazas: "Interrupción eléctrica", alerta: "Amarilla", afec_plan: "Cortes eléctricos y afectación agrícola.", afec_act: "Verificación de generador y energía (18/09/2026).", mit_plan: "Generador eléctrico y mantenimiento.", mit_act: "Evaluación en microcrédito agrícola.", cartera: 2900000, clientes: 890, impacto_saldo: 540000, impacto_clientes: 170 },
+            { oficina: "Atahualpa", direccion: "Av. Eloy Alfaro y Amazonas", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Inconvenientes menores por filtraciones.", afec_act: "Revisión de canaletas y bajantes (18/09/2026).", mit_plan: "Mantenimiento preventivo.", mit_act: "Limpieza de desagües.", cartera: 4100000, clientes: 1100, impacto_saldo: 320000, impacto_clientes: 95 },
+            { oficina: "Inca", direccion: "Av. de los Shyris y Suecia", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Saturación de sumideros en zona comercial.", afec_act: "Monitoreo urbano (18/09/2026).", mit_plan: "Revisión de sistemas eléctricos y bomba.", mit_act: "Pruebas de bomba de sumidero.", cartera: 3900000, clientes: 1050, impacto_saldo: 290000, impacto_clientes: 85 },
+            { oficina: "Centro", direccion: "Guayaquil y Chile", canton: "Quito", amenazas: "Precipitaciones / Cortes eléctricos", alerta: "Blanca", afec_plan: "Filtraciones en edificaciones patrimoniales.", afec_act: "Inspección de cubiertas históricas (18/09/2026).", mit_plan: "Impermeabilización.", mit_act: "Mantenimiento de techumbre.", cartera: 5200000, clientes: 1400, impacto_saldo: 410000, impacto_clientes: 130 },
+            { oficina: "El Portal", direccion: "Centro Comercial El Portal", canton: "Calderón", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Afectación menor por accesibilidad.", afec_act: "Coordinación con centro comercial (18/09/2026).", mit_plan: "Protocolos conjuntos.", mit_act: "Verificación de accesos.", cartera: 3800000, clientes: 990, impacto_saldo: 280000, impacto_clientes: 75 },
+            { oficina: "Quicentro Sur", direccion: "Av. Teniente Hugo Ortiz", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Congestión vehicular en el sur.", afec_act: "Seguimiento operativo (18/09/2026).", mit_plan: "Planes comerciales.", mit_act: "Respaldo digital.", cartera: 6100000, clientes: 1650, impacto_saldo: 450000, impacto_clientes: 140 },
+            { oficina: "Quicentro Norte", direccion: "Av. Naciones Unidas y Shyris", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Inconvenientes menores en accesos.", afec_act: "Monitoreo preventivo (18/09/2026).", mit_plan: "Coordinación comercial.", mit_act: "Revisión de respaldos.", cartera: 7500000, clientes: 1950, impacto_saldo: 580000, impacto_clientes: 180 },
+            { oficina: "CCI", direccion: "Av. Amazonas y República", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Saturación vial en zona CCI.", afec_act: "Evaluación de entorno (18/09/2026).", mit_plan: "Mantenimiento estándar.", mit_act: "Revisión de seguridades.", cartera: 4600000, clientes: 1200, impacto_saldo: 340000, impacto_clientes: 100 },
+            { oficina: "Scala", direccion: "Scala Shopping", canton: "Rumiñahui", amenazas: "Precipitaciones / Valles", alerta: "Blanca", afec_plan: "Afectación en conectividad hacia valles.", afec_act: "Monitoreo de ruta Viva (18/09/2026).", mit_plan: "Planes viales.", mit_act: "Coordinación con Scala.", cartera: 5400000, clientes: 1450, impacto_saldo: 420000, impacto_clientes: 130 },
+            { oficina: "Centro Financiero", direccion: "Av. Amazonas y Eloy Alfaro", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Congestión en financiero norte.", afec_act: "Revisión corporativa (18/09/2026).", mit_plan: "Infraestructura robusta.", mit_act: "Pruebas de planta.", cartera: 8900000, clientes: 2200, impacto_saldo: 690000, impacto_clientes: 210 },
+            { oficina: "El Recreo", direccion: "CC El Recreo", canton: "Quito", amenazas: "Aumento de precipitaciones", alerta: "Blanca", afec_plan: "Afluencia masiva y retrasos.", afec_act: "Control de accesos y drenajes (18/09/2026).", mit_plan: "Protocolos con administración.", mit_act: "Verificación de equipos.", cartera: 6300000, clientes: 1700, impacto_saldo: 480000, impacto_clientes: 150 },
+            { oficina: "San Luis", direccion: "San Luis Shopping", canton: "Rumiñahui", amenazas: "Precipitaciones / Valles", alerta: "Blanca", afec_plan: "Riesgo de congestión en Chillos.", afec_act: "Monitoreo del río San Pedro (18/09/2026).", mit_plan: "Planes en valles.", mit_act: "Coordinación con San Luis.", cartera: 6700000, clientes: 1800, impacto_saldo: 510000, impacto_clientes: 160 },
+            { oficina: "Pomasqui", direccion: "Av. Mitad del Mundo", canton: "Quito", amenazas: "Precipitaciones y vientos", alerta: "Blanca", afec_plan: "Afectación en vías norte y periferia.", afec_act: "Revisión de cubierta (18/09/2026).", mit_plan: "Mantenimiento local.", mit_act: "Verificación eléctrica.", cartera: 2800000, clientes: 850, impacto_saldo: 210000, impacto_clientes: 70 },
+            { oficina: "Tumbaco", direccion: "Interoceánica Km 12", canton: "Quito", amenazas: "Precipitaciones y deslizamientos", alerta: "Blanca", afec_plan: "Riesgo en conectividad oriental.", afec_act: "Monitoreo de taludes (18/09/2026).", mit_plan: "Rutas alternas y teletrabajo.", mit_act: "Verificación de planta.", cartera: 3400000, clientes: 950, impacto_saldo: 260000, impacto_clientes: 80 },
+            { oficina: "Sangolquí", direccion: "Av. General Enríquez", canton: "Rumiñahui", amenazas: "Crecida de ríos", alerta: "Blanca", afec_plan: "Riesgo por proximidad a ríos.", afec_act: "Seguimiento a crecidas del Santa Clara (18/09/2026).", mit_plan: "Evacuación y barreras.", mit_act: "Inspección de sumideros.", cartera: 4900000, clientes: 1350, impacto_saldo: 390000, impacto_clientes: 120 },
+            { oficina: "Machachi", direccion: "Panamericana Sur", canton: "Mejía", amenazas: "Bajas temperaturas / Lluvias", alerta: "Blanca", afec_plan: "Afectación al sector agrícola y ganadero.", afec_act: "Monitoreo sector pecuario (18/09/2026).", mit_plan: "Apoyo crediticio preventivo.", mit_act: "Evaluación de créditos rurales.", cartera: 3100000, clientes: 920, impacto_saldo: 250000, impacto_clientes: 75 },
+            { oficina: "Cayambe", direccion: "Calle Sucre y Rocafuerte", canton: "Cayambe", amenazas: "Heladas y precipitaciones", alerta: "Blanca", afec_plan: "Impacto en producción florícola.", afec_act: "Seguimiento a sector florícola (18/09/2026).", mit_plan: "Reestructuración y gracia.", mit_act: "Visitas preventivas.", cartera: 3600000, clientes: 1020, impacto_saldo: 300000, impacto_clientes: 90 }
+        ];
+
+        let totalCartera = officesData.reduce((sum, o) => sum + o.cartera, 0);
+        let totalClientes = officesData.reduce((sum, o) => sum + o.clientes, 0);
+        let totalImpactoSaldo = officesData.reduce((sum, o) => sum + o.impacto_saldo, 0);
+        let totalImpactoClientes = officesData.reduce((sum, o) => sum + o.impacto_clientes, 0);
+
+        let pctCartera = ((totalImpactoSaldo / totalCartera) * 100).toFixed(2);
+        let pctClientes = ((totalImpactoClientes / totalClientes) * 100).toFixed(2);
+
+        const totalsGrid = document.getElementById('totalsGrid');
+        totalsGrid.innerHTML = `
+            <div class="total-card">
+                <h4>Cartera Total (Corte 17/9/2026)</h4>
+                <div class="total-value">$ ${totalCartera.toLocaleString()}</div>
+                <div class="total-percentage">23 Agencias (100%)</div>
+            </div>
+            <div class="total-card">
+                <h4>Clientes Total Cartera</h4>
+                <div class="total-value">${totalClientes.toLocaleString()}</div>
+                <div class="total-percentage">Socios Activos</div>
+            </div>
+            <div class="total-card highlight">
+                <h4>Cartera Impacto FEN Total</h4>
+                <div class="total-value">$ ${totalImpactoSaldo.toLocaleString()}</div>
+                <div class="total-percentage">Impacto: ${pctCartera}%</div>
+            </div>
+            <div class="total-card highlight">
+                <h4>Clientes Impacto FEN Total</h4>
+                <div class="total-value">${totalImpactoClientes.toLocaleString()}</div>
+                <div class="total-percentage">Impacto: ${pctClientes}%</div>
+            </div>
+        `;
+
+        const tbody = document.getElementById('quantTableBody');
+        const accordionContainer = document.getElementById('accordionContainer');
+
+        function renderTable(data) {
+            tbody.innerHTML = '';
+            data.forEach(o => {
+                let badgeClass = o.alerta === 'Amarilla' ? 'badge-amarilla' : 'badge-blanca';
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${o.oficina}</strong></td>
+                    <td>${o.direccion}</td>
+                    <td>${o.canton}</td>
+                    <td>${o.amenazas}</td>
+                    <td><span class="badge ${badgeClass}">${o.alerta}</span></td>
+                    <td>${o.afec_plan}</td>
+                    <td>${o.afec_act}</td>
+                    <td>${o.mit_plan}</td>
+                    <td>${o.mit_act}</td>
+                    <td>$ ${o.cartera.toLocaleString()}</td>
+                    <td>${o.clientes.toLocaleString()}</td>
+                    <td><strong>$ ${o.impacto_saldo.toLocaleString()}</strong></td>
+                    <td>${o.impacto_clientes.toLocaleString()}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            let totalTr = document.createElement('tr');
+            totalTr.className = 'total-row';
+            totalTr.innerHTML = `
+                <td colspan="9" style="text-align: right;">TOTALES GENERALES (FILA 24):</td>
+                <td>$ ${totalCartera.toLocaleString()}</td>
+                <td>${totalClientes.toLocaleString()}</td>
+                <td>$ ${totalImpactoSaldo.toLocaleString()} (${pctCartera}%)</td>
+                <td>${totalImpactoClientes.toLocaleString()} (${pctClientes}%)</td>
+            `;
+            tbody.appendChild(totalTr);
+        }
+
+        function renderAccordions() {
+            accordionContainer.innerHTML = '';
+            officesData.forEach(o => {
+                let div = document.createElement('div');
+                div.className = 'accordion-item';
+                div.innerHTML = `
+                    <div class="accordion-header" onclick="toggleAccordion(this)">${o.oficina} (${o.canton}) — Alerta: ${o.alerta} | Cartera: $ ${o.cartera.toLocaleString()}</div>
+                    <div class="accordion-content">
+                        <p><strong>Dirección:</strong> ${o.direccion}</p>
+                        <p><strong>Amenazas:</strong> ${o.amenazas}</p>
+                        <p><strong>Afectaciones Plan FEN:</strong> ${o.afec_plan}</p>
+                        <p><strong>Afectaciones Actualización (18/09/2026):</strong> ${o.afec_act}</p>
+                        <p><strong>Mitigación Plan FEN:</strong> ${o.mit_plan}</p>
+                        <p><strong>Mitigación Actualización (18/09/2026):</strong> ${o.mit_act}</p>
+                        <p><strong>Saldo Cartera:</strong> $ ${o.cartera.toLocaleString()} (${o.clientes} clientes)</p>
+                        <p><strong>Saldo Impacto FEN:</strong> $ ${o.impacto_saldo.toLocaleString()} (${o.impacto_clientes} clientes afectados)</p>
+                    </div>
+                `;
+                accordionContainer.appendChild(div);
+            });
+        }
+
+        renderTable(officesData);
+        renderAccordions();
+
+        let sortDirection = false;
+        function sortTable(columnIndex) {
+            sortDirection = !sortDirection;
+            officesData.sort((a, b) => {
+                let valA = Object.values(a)[columnIndex];
+                let valB = Object.values(b)[columnIndex];
+                if (typeof valA === 'number') {
+                    return sortDirection ? valA - valB : valB - valA;
+                }
+                return sortDirection ? String(valA).localeCompare(String(valB)) : String(valB).localeCompare(String(valA));
+            });
+            renderTable(officesData);
+        }
+
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
+
+        function toggleMindmap(branch) {
+            const isActive = branch.classList.contains('active');
+            document.querySelectorAll('.mindmap-branch').forEach(b => b.classList.remove('active'));
+            if (!isActive) branch.classList.add('active');
+        }
+
+        function setMonth(monthKey) {
+            const steps = document.querySelectorAll('.timeline-step');
+            const labels = document.querySelectorAll('.timeline-labels span');
+            const desc = document.getElementById('phase-desc');
+            steps.forEach(s => s.classList.remove('active'));
+            labels.forEach(l => l.classList.remove('active'));
+
+            let idx = 0;
+            if (monthKey === 'sep-oct-2026') idx = 0;
+            if (monthKey === 'nov-2026') idx = 1;
+            if (monthKey === 'dic-2026') idx = 2;
+            if (monthKey === 'ene-feb-2027') idx = 3;
+            if (monthKey === 'mar-2027') idx = 4;
+
+            steps[idx].classList.add('active');
+            labels[idx].classList.add('active');
+
+            if (monthKey === 'sep-oct-2026') desc.innerHTML = '<strong>Septiembre - Octubre 2026:</strong> Lluvias en la Costa y estiaje en la Sierra. Monitoreo permanente.';
+            else if (monthKey === 'nov-2026') desc.innerHTML = '<strong>Noviembre 2026:</strong> Ciclo electoral y presión de liquidez sobre carteras vulnerables.';
+            else if (monthKey === 'dic-2026') desc.innerHTML = '<strong>Diciembre 2026:</strong> Exposición máxima de cartera agropecuaria y PYME. Activación de fondos de emergencia.';
+            else if (monthKey === 'ene-feb-2027') desc.innerHTML = '<strong>Enero - Febrero 2027:</strong> Período crítico de invierno costero y crecidas de caudales.';
+            else if (monthKey === 'mar-2027') desc.innerHTML = '<strong>Marzo 2027:</strong> Evaluación post-impacto, levantamiento de daños y rehabilitación operativa.';
+        }
+
+        const targetDate = new Date('December 1, 2026 00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="clock-box"><div class="clock-number">¡PLAZO ALCANZADO!</div></div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
